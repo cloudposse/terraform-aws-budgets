@@ -48,7 +48,7 @@ references:
 
 # Short description of this project
 description: |-
-  Terraform module to manage [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html).
+  Terraform module to create [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) and an associated SNS topic that can be used for alerts.
 
 # Introduction to the project
 # introduction: |-
@@ -76,6 +76,21 @@ usage: |-
     source  = "cloudposse/budgets/aws"
     # Cloud Posse recommends pinning every module to a specific version
     # version = "x.x.x"
+
+    budgets = [
+      {
+
+      }
+    ]
+
+    # create an SNS topic and lambda for Slack notifications
+    notifications_enabled = true
+    slack_webhook_url     = "https://url"
+    slack_username        = "AWS Budgets"
+    slack_channel         = "notifications"
+
+    # encrypt SNS topic, this also creates a KMS CMK that allows `budgets.amazonaws.com` to use it
+    encryption_enabled = true
 
     context = module.label.this
   }
