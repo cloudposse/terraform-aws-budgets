@@ -54,7 +54,6 @@ func TestExamplesComplete(t *testing.T) {
 }
 
 // Test the Terraform module in examples/complete doesn't attempt to create resources with enabled=false
-// This is commented out b/c the initial plan, Terraform tries to apply, even though there is nothing to apply
-// func TestExamplesCompleteDisabled(t *testing.T) {
-// 	testNoChanges(t, "../../examples/complete")
-// }
+func TestExamplesCompleteDisabled(t *testing.T) {
+	testExamplesCompleteDisabled(t)
+}
