@@ -48,7 +48,7 @@ references:
 
 # Short description of this project
 description: |-
-  Terraform module to create [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) and an associated SNS topic that can be used for alerts.
+  Terraform module to create [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) and an associated SNS topic and Lambda function to send notifications to Slack.
 
 # Introduction to the project
 # introduction: |-
@@ -110,12 +110,12 @@ usage: |-
     ]
   }
 
-  module "example" {
+  module "budgets" {
     source  = "cloudposse/budgets/aws"
     # Cloud Posse recommends pinning every module to a specific version
     # version = "x.x.x"
 
-    budgets = var.budgets
+    budgets = local.budgets
 
     # create an SNS topic and lambda for Slack notifications
     notifications_enabled = true

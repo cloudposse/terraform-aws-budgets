@@ -113,6 +113,7 @@ resource "aws_budgets_budget" "default" {
   for_each = local.budgets
 
   name              = format("%s-%s", module.this.id, each.value.name)
+  account_id        = lookup(each.value, "account_id", null)
   budget_type       = each.value.budget_type
   limit_amount      = each.value.limit_amount
   limit_unit        = lookup(each.value, "limit_unit", "USD")

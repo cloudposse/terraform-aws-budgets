@@ -2,7 +2,8 @@
 variable "budgets" {
   type        = any
   description = <<-EOF
-  A list of Budgets to create.
+  A list of Budgets to be managed by this module, see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#argument-reference
+  for a list of possible attributes. For a more specific example, see `examples/complete/fixtures.us-east-2.tfvars` in this repository.
   EOF
   default     = []
 }
