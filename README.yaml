@@ -72,20 +72,54 @@ usage: |-
     name      = "example"
   }
 
+  locals {
+    budgets = [
+      {
+        name            = "budget-ec2-monthly"
+        budget_type     = "COST"
+        limit_amount    = "1200"
+        limit_unit      = "USD"
+        time_period_end = "2087-06-15_00:00"
+        time_unit       = "MONTHLY"
+
+        cost_filter = {
+          Service = ["Amazon Elastic Compute Cloud - Compute"]
+        }
+
+        notification = {
+          comparison_operator = "GREATER_THAN"
+          threshold           = "100"
+          threshold_type      = "PERCENTAGE"
+          notification_type   = "FORECASTED"
+        }
+      },
+      {
+        name         = "100-total-monthly"
+        budget_type  = "COST"
+        limit_amount = "100"
+        limit_unit   = "USD"
+        time_unit    = "MONTHLY"
+      },
+      {
+        name         = "s3-3GB-limit-monthly"
+        budget_type  = "USAGE"
+        limit_amount = "3"
+        limit_unit   = "GB"
+        time_unit    = "MONTHLY"
+      }
+    ]
+  }
+
   module "example" {
     source  = "cloudposse/budgets/aws"
     # Cloud Posse recommends pinning every module to a specific version
     # version = "x.x.x"
 
-    budgets = [
-      {
-
-      }
-    ]
+    budgets = var.budgets
 
     # create an SNS topic and lambda for Slack notifications
     notifications_enabled = true
-    slack_webhook_url     = "https://url"
+    slack_webhook_url     = "https://slack-webhook-url"
     slack_username        = "AWS Budgets"
     slack_channel         = "notifications"
 
