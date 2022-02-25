@@ -131,7 +131,7 @@ resource "aws_budgets_budget" "default" {
   }
 
   dynamic "notification" {
-    for_each = lookup(each.value, "notification", null) != null ? [each.value.notification] : []
+    for_each = lookup(each.value, "notification", null) != null ? try(tolist(each.value.notification), [each.value.notification]) : []
 
     content {
       comparison_operator = notification.value.comparison_operator
