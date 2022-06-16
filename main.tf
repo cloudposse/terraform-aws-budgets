@@ -140,7 +140,7 @@ resource "aws_budgets_budget" "default" {
       notification_type   = notification.value.notification_type
       # use SNS topic when `sns_notification_enabled` is true, otherwise either of these values must be present in budgets.notification object
       subscriber_sns_topic_arns  = local.notifications_enabled ? [module.sns_topic.sns_topic_arn] : lookup(notification.value, "subscriber_sns_topic_arns", null)
-      subscriber_email_addresses = local.notifications_enabled ? null : lookup(notification, "subscriber_email_addresses", null)
+      subscriber_email_addresses = local.notifications_enabled ? null : lookup(notification.value, "subscriber_email_addresses", null)
     }
   }
 }
