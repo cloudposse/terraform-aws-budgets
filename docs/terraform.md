@@ -17,7 +17,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_kms_key"></a> [kms\_key](#module\_kms\_key) | cloudposse/kms-key/aws | 0.12.1 |
-| <a name="module_slack_notify_lambda"></a> [slack\_notify\_lambda](#module\_slack\_notify\_lambda) | cloudposse/sns-lambda-notify-slack/aws | 0.5.6 |
+| <a name="module_slack_notify_lambda"></a> [slack\_notify\_lambda](#module\_slack\_notify\_lambda) | cloudposse/sns-lambda-notify-slack/aws | 0.5.7 |
 | <a name="module_sns_topic"></a> [sns\_topic](#module\_sns\_topic) | cloudposse/sns-topic/aws | 0.20.1 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
