@@ -121,6 +121,23 @@ resource "aws_budgets_budget" "default" {
   time_period_end   = lookup(each.value, "time_period_end", null)
   time_unit         = each.value.time_unit
 
+  dynamic "cost_types" {
+    for_each = lookup(each.value, "cost_types", null) != null ? [each.value.cost_types] : []
+
+    content {
+      include_credit             = lookup(cost_types.value, "include_credit", null)
+      include_discount           = lookup(cost_types.value, "include_discount", null)
+      include_other_subscription = lookup(cost_types.value, "include_other_subscription", null)
+      include_recurring          = lookup(cost_types.value, "include_recurring", null)
+      include_refund             = lookup(cost_types.value, "include_refund", null)
+      include_subscription       = lookup(cost_types.value, "include_subscription", null)
+      include_support            = lookup(cost_types.value, "include_support", null)
+      include_tax                = lookup(cost_types.value, "include_tax", null)
+      include_upfront            = lookup(cost_types.value, "include_upfront", null)
+      use_blended                = lookup(cost_types.value, "use_blended", null)
+    }
+  }
+
   dynamic "cost_filter" {
     for_each = lookup(each.value, "cost_filter", null) != null ? each.value.cost_filter : {}
 

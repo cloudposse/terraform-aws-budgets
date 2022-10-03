@@ -21,6 +21,19 @@ budgets = [
       Service = ["Amazon Elastic Compute Cloud - Compute"]
     }
 
+    cost_types = {
+      include_credit             = true
+      include_discount           = true
+      include_other_subscription = false
+      include_recurring          = true
+      include_refund             = false
+      include_subscription       = true
+      include_support            = false
+      include_tax                = true
+      include_upfront            = false
+      use_blended                = false
+    }
+
     notification = {
       comparison_operator = "GREATER_THAN"
       threshold           = "100"
