@@ -89,7 +89,7 @@ module "sns_topic" {
 
 module "slack_notify_lambda" {
   source     = "cloudposse/sns-lambda-notify-slack/aws"
-  version    = "0.5.8"
+  version    = "0.5.9"
   enabled    = local.notifications_enabled
   attributes = ["budgets"]
 
