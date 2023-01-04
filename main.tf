@@ -102,6 +102,7 @@ module "slack_notify_lambda" {
   slack_webhook_url = var.slack_webhook_url
   slack_channel     = var.slack_channel
   slack_username    = var.slack_username
+  slack_emoji       = var.slack_emoji
 
   # underlying module doesn't like when `kms_key_arn` is `null`
   kms_key_arn = local.create_kms_key ? module.kms_key.key_arn : (var.kms_master_key_id == null ? "" : var.kms_master_key_id)
@@ -148,7 +149,9 @@ resource "aws_budgets_budget" "default" {
   }
 
   dynamic "notification" {
-    for_each = lookup(each.value, "notification", null) != null ? try(tolist(each.value.notification), [each.value.notification]) : []
+    for_each = lookup(each.value, "notification", null) != null ? try(tolist(each.value.notification), [
+      each.value.notification
+    ]) : []
 
     content {
       comparison_operator = notification.value.comparison_operator
@@ -156,7 +159,9 @@ resource "aws_budgets_budget" "default" {
       threshold_type      = notification.value.threshold_type
       notification_type   = notification.value.notification_type
       # use SNS topic when `sns_notification_enabled` is true, otherwise either of these values must be present in budgets.notification object
-      subscriber_sns_topic_arns  = local.notifications_enabled ? [module.sns_topic.sns_topic_arn] : lookup(notification.value, "subscriber_sns_topic_arns", null)
+      subscriber_sns_topic_arns = local.notifications_enabled ? [
+        module.sns_topic.sns_topic_arn
+      ] : lookup(notification.value, "subscriber_sns_topic_arns", null)
       subscriber_email_addresses = local.notifications_enabled ? null : lookup(notification.value, "subscriber_email_addresses", null)
     }
   }
