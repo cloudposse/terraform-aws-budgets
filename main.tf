@@ -4,7 +4,7 @@ locals {
   notifications_enabled = local.enabled && var.notifications_enabled
   create_kms_key        = local.enabled && local.notifications_enabled && local.encryption_enabled && var.kms_master_key_id == null
 
-  budgets = {for i, budget in var.budgets : i => budget if module.this.enabled}
+  budgets = { for i, budget in var.budgets : i => budget if module.this.enabled }
 }
 
 # budgets does not work well with default SNS KMS key (alias/aws/sns)
@@ -97,7 +97,7 @@ module "slack_notify_lambda" {
   create_sns_topic = false
   # the underlying module uses this in a template string, and cannot be null, so instead when `null` pass an empty string
   # see https://github.com/terraform-aws-modules/terraform-aws-notify-slack/blob/master/main.tf#L8
-  sns_topic_name   = module.sns_topic.sns_topic_name != null ? module.sns_topic.sns_topic_name : ""
+  sns_topic_name = module.sns_topic.sns_topic_name != null ? module.sns_topic.sns_topic_name : ""
 
   slack_webhook_url = var.slack_webhook_url
   slack_channel     = var.slack_channel
@@ -154,12 +154,12 @@ resource "aws_budgets_budget" "default" {
     ]) : []
 
     content {
-      comparison_operator        = notification.value.comparison_operator
-      threshold                  = notification.value.threshold
-      threshold_type             = notification.value.threshold_type
-      notification_type          = notification.value.notification_type
+      comparison_operator = notification.value.comparison_operator
+      threshold           = notification.value.threshold
+      threshold_type      = notification.value.threshold_type
+      notification_type   = notification.value.notification_type
       # use SNS topic when `sns_notification_enabled` is true, otherwise either of these values must be present in budgets.notification object
-      subscriber_sns_topic_arns  = local.notifications_enabled ? [
+      subscriber_sns_topic_arns = local.notifications_enabled ? [
         module.sns_topic.sns_topic_arn
       ] : lookup(notification.value, "subscriber_sns_topic_arns", null)
       subscriber_email_addresses = local.notifications_enabled ? null : lookup(notification.value, "subscriber_email_addresses", null)
