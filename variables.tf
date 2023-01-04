@@ -55,3 +55,9 @@ variable "slack_username" {
   description = "The username that will appear on Slack messages. Only used when `notifications_enabled` is `true`"
   default     = ""
 }
+
+variable "slack_emoji" {
+  type        = string
+  description = "A custom emoji that will appear on Slack messages"
+  default     = ":amazon-aws:"
+}
