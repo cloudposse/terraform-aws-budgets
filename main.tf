@@ -5,6 +5,7 @@ locals {
   create_kms_key        = local.enabled && local.notifications_enabled && local.encryption_enabled && var.kms_master_key_id == null
 
   budgets = { for i, budget in var.budgets : i => budget if module.this.enabled }
+    
 }
 
 # budgets does not work well with default SNS KMS key (alias/aws/sns)
