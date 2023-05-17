@@ -75,7 +75,7 @@ module "kms_key" {
 # see https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-sns-policy.html
 module "sns_topic" {
   source     = "cloudposse/sns-topic/aws"
-  version    = "0.20.2"
+  version    = "0.21.0"
   enabled    = local.notifications_enabled
   attributes = ["budgets"]
 
