@@ -107,6 +107,10 @@ module "slack_notify_lambda" {
   # underlying module doesn't like when `kms_key_arn` is `null`
   kms_key_arn = local.create_kms_key ? module.kms_key.key_arn : (var.kms_master_key_id == null ? "" : var.kms_master_key_id)
 
+  # if the Lambda should be deployed in a VPC use these
+  vpc_subnet_ids         = var.vpc_subnet_ids
+  vpc_security_group_ids = var.vpc_security_group_ids
+
   context = module.this.context
 }
 
