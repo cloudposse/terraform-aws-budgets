@@ -17,3 +17,10 @@
 # Crash log files
 crash.log
 test.log
+
+# MacOS files
+.DS_Store
+
+# Terraform lock files
+.terraform.lock.hcl
+
