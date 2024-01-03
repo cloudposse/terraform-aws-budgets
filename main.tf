@@ -58,8 +58,9 @@ data "aws_iam_policy_document" "kms_key_policy" {
 }
 
 module "kms_key" {
-  source     = "cloudposse/kms-key/aws"
-  version    = "0.12.1"
+  source  = "cloudposse/kms-key/aws"
+  version = "0.12.1"
+
   enabled    = local.create_kms_key
   attributes = ["budgets"]
 
@@ -74,8 +75,9 @@ module "kms_key" {
 
 # see https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-sns-policy.html
 module "sns_topic" {
-  source     = "cloudposse/sns-topic/aws"
-  version    = "0.20.2"
+  source  = "cloudposse/sns-topic/aws"
+  version = "0.21.0"
+
   enabled    = local.notifications_enabled
   attributes = ["budgets"]
 
@@ -88,8 +90,9 @@ module "sns_topic" {
 }
 
 module "slack_notify_lambda" {
-  source     = "cloudposse/sns-lambda-notify-slack/aws"
-  version    = "0.7.0"
+  source  = "cloudposse/sns-lambda-notify-slack/aws"
+  version = "0.7.0"
+
   enabled    = local.notifications_enabled
   attributes = ["budgets"]
 
