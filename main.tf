@@ -95,6 +95,7 @@ module "slack_notify_lambda" {
 
   # use `module.sns_topic` instead of creating a new topic
   create_sns_topic = false
+
   # the underlying module uses this in a template string, and cannot be null, so instead when `null` pass an empty string
   # see https://github.com/terraform-aws-modules/terraform-aws-notify-slack/blob/master/main.tf#L8
   sns_topic_name = module.sns_topic.sns_topic_name != null ? module.sns_topic.sns_topic_name : ""
