@@ -89,12 +89,13 @@ module "sns_topic" {
 
 module "slack_notify_lambda" {
   source     = "cloudposse/sns-lambda-notify-slack/aws"
-  version    = "0.5.9"
+  version    = "0.7.0"
   enabled    = local.notifications_enabled
   attributes = ["budgets"]
 
   # use `module.sns_topic` instead of creating a new topic
   create_sns_topic = false
+
   # the underlying module uses this in a template string, and cannot be null, so instead when `null` pass an empty string
   # see https://github.com/terraform-aws-modules/terraform-aws-notify-slack/blob/master/main.tf#L8
   sns_topic_name = module.sns_topic.sns_topic_name != null ? module.sns_topic.sns_topic_name : ""
@@ -106,6 +107,10 @@ module "slack_notify_lambda" {
 
   # underlying module doesn't like when `kms_key_arn` is `null`
   kms_key_arn = local.create_kms_key ? module.kms_key.key_arn : (var.kms_master_key_id == null ? "" : var.kms_master_key_id)
+
+  # if the Lambda should be deployed in a VPC use these
+  vpc_subnet_ids         = var.vpc_subnet_ids
+  vpc_security_group_ids = var.vpc_security_group_ids
 
   context = module.this.context
 }
