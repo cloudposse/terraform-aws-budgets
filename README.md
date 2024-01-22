@@ -27,6 +27,7 @@
 
 Terraform module to create [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) and an associated SNS topic and Lambda function to send notifications to Slack.
 
+
 ---
 > [!NOTE]
 > This project is part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
@@ -37,9 +38,6 @@ Terraform module to create [AWS Budgets](https://docs.aws.amazon.com/cost-manage
 > We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
 
 [![README Header][readme_header_img]][readme_header_link]
-
-
-
 
 
 

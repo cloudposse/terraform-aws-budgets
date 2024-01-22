@@ -130,6 +130,16 @@ resource "aws_budgets_budget" "default" {
   time_period_end   = lookup(each.value, "time_period_end", null)
   time_unit         = each.value.time_unit
 
+  dynamic "auto_adjust_data" {
+    for_each = lookup(each.value, "auto_adjust_data", null) != null ? try(tolist(each.value.auto_adjust_data), [
+      each.value.auto_adjust_data
+    ]) : []
+
+    content {
+      auto_adjust_type = auto_adjust_data.value.auto_adjust_type
+    }
+  }
+
   dynamic "cost_types" {
     for_each = lookup(each.value, "cost_types", null) != null ? [each.value.cost_types] : []
 
