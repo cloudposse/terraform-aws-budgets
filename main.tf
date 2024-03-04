@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "kms_key_policy" {
 
 module "kms_key" {
   source  = "cloudposse/kms-key/aws"
-  version = "0.12.1"
+  version = "0.12.2"
 
   enabled    = local.create_kms_key
   attributes = ["budgets"]
