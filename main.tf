@@ -180,7 +180,7 @@ resource "aws_budgets_budget" "default" {
       subscriber_sns_topic_arns = local.notifications_enabled ? [
         module.sns_topic.sns_topic_arn
       ] : lookup(notification.value, "subscriber_sns_topic_arns", null)
-      subscriber_email_addresses = local.notifications_enabled ? null : lookup(notification.value, "subscriber_email_addresses", null)
+      subscriber_email_addresses = local.notifications_enabled ? lookup(notification.value, "subscriber_email_addresses", null) : null
     }
   }
 }
