@@ -154,6 +154,7 @@ resource "aws_budgets_budget" "default" {
       include_tax                = lookup(cost_types.value, "include_tax", null)
       include_upfront            = lookup(cost_types.value, "include_upfront", null)
       use_blended                = lookup(cost_types.value, "use_blended", null)
+      use_amortized              = lookup(cost_types.value, "use_amortized", null)
     }
   }
 
