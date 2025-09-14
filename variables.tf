@@ -73,3 +73,9 @@ variable "vpc_security_group_ids" {
   type        = list(string)
   default     = null
 }
+
+variable "naming_prefix_enabled" {
+  type        = bool
+  description = ""
+  default     = true
+}
