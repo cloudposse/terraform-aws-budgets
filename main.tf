@@ -184,4 +184,15 @@ resource "aws_budgets_budget" "default" {
       subscriber_email_addresses = lookup(notification.value, "subscriber_email_addresses", null)
     }
   }
+
+  dynamic "planned_limit" {
+    for_each = lookup(each.value, "planned_limits", null) != null ? try(tolist(each.value.planned_limits), [
+      each.value.planned_limits
+    ]) : []
+    content {
+      start_time = planned_limit.value.start_time
+      amount     = planned_limit.value.amount
+      unit       = planned_limit.value.unit
+    }
+  }
 }
