@@ -121,7 +121,7 @@ module "slack_notify_lambda" {
 resource "aws_budgets_budget" "default" {
   for_each = local.budgets
 
-  name              = format("%s-%s", module.this.id, each.value.name)
+  name              = join("-", compact([module.this.id, each.value.name]))
   account_id        = lookup(each.value, "account_id", null)
   budget_type       = each.value.budget_type
   limit_amount      = each.value.limit_amount
